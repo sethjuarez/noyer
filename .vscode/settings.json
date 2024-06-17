@@ -1,0 +1,5 @@
+{
+  "python.defaultInterpreterPath": "./api/.venv/scripts/python.exe",
+  "python.terminal.activateEnvironment": true,
+  "prompty.currentModelConfiguration": "djefa-swiss"
+}
