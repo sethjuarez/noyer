@@ -22,16 +22,13 @@ export interface IChatTurn {
 }
 
 export const startWritingTask = async (
-  research: string,
-  products: string,
-  assignment: string,
+  description: string,
+  keywords: string,
+  audience: string,
   addMessage: { (message: IMessage): void },
-  setArticle: { (article: string): void }
+  addPost: { (post: string): void }
 ) => {
-  
-  const url = `${
-    endpoint.endsWith("/") ? endpoint : endpoint + "/"
-  }api/article`;
+  const url = `${endpoint.endsWith("/") ? endpoint : endpoint + "/"}api/posts`;
 
   const configuration = {
     method: "POST",
@@ -39,19 +36,24 @@ export const startWritingTask = async (
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      research: research,
-      products: products,
-      assignment: assignment,
+      description: description,
+      keywords: keywords.split(",").map((keyword: string) => keyword.trim()),
+      audience: audience,
     }),
   };
 
-    addMessage({
-      type: "message",
-      message: "Starting writing task"
-    });
+  addMessage({
+    type: "message",
+    message: "Starting writing task",
+  });
 
   const response = await fetch(url, configuration);
   const data = await response.json();
+  console.log(data);
 
-  setArticle(data.article);
+  if(Array.isArray(data)) {
+    data.forEach((post: string) => {
+      addPost(post);
+    });
+  }
 };

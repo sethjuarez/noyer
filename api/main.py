@@ -1,7 +1,13 @@
-from typing import Union
+import json
+from dotenv import load_dotenv
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+
+import agents.writer as writer
+from models import WriterTask
+
+load_dotenv()
 
 origins = [
     "http://localhost:5173",
@@ -22,11 +28,10 @@ def read_root():
     return {"Hello": "World"}
 
 
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Union[str, None] = None):
-    return {"item_id": item_id, "q": q}
-
-
-@app.post("/api/article")
-async def create_article():
-    return {"article": "YO MAMA"}
+@app.post("/api/posts")
+async def create_posts(task: WriterTask):
+    response = writer.execute(
+        description=task.description, keywords=task.keywords, audience=task.audience
+    )
+    print(response)
+    return json.loads(response)

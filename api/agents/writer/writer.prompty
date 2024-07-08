@@ -53,8 +53,16 @@ Make sure the response is engaging and will attract attendees to the event.
 The responses should also be appropriate and respectful to the audience.
 
 Return a list of posts along with any emojis or hashtags you think would be
-appropriate to include in the post. 
+appropriate to include in the post. Your response should be in json format.
 
+Example response:
+[
+  "Join us for the next AI Show where we will be discussing the phi-3 mini and how you can use it in your browser. #AI #GenAI #LLM's",
+  "Don't miss the next AI Show where we will be talking about the phi-3 mini and how you can use it in your browser. #AI #GenAI #LLM's",
+  "The next AI Show is coming up! We will be discussing the phi-3 mini and how you can use it in your browser. #AI #GenAI #LLM's"
+  "Join us for the next AI Show where we will be discussing the phi-3 mini and how you can use it in your browser. #AI #GenAI #LLM's"
+  "Don't miss the next AI Show where we will be talking about the phi-3 mini and how you can use it in your browser. #AI #GenAI #LLM's"
+]
 
 user:
 Can you create a list of creative social media posts to promote the next AI Show?

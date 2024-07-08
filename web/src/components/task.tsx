@@ -7,69 +7,70 @@ import { useState } from "react";
 import { IMessage, startWritingTask } from "../store";
 import { useAppDispatch } from "../store/hooks";
 import { addMessage } from "../store/messageSlice";
-import { addArticle } from "../store/articleSlice";
+import { addPost } from "../store/postSlice";
 
 export const Task = () => {
-  const [research, setResearch] = useState("");
-  const [products, setProducts] = useState("");
-  const [writing, setWriting] = useState("");
+  const [description, setDescription] = useState("");
+  const [keywords, setKeywords] = useState("");
+  const [audience, setAudience] = useState("");
 
   const dispatch = useAppDispatch();
 
   const setExample = () => {
-    setResearch(
-      "Can you find the latest camping trends and what folks are doing in the winter?"
+    setDescription(
+      "The next AI Show will be about using phi-3 mini in your browser."
     );
-    setProducts("Can you use a selection of tents and sleeping bags as context?");
-    setWriting(
-      "Write a fun and engaging article that includes the research and product information. The article should be between 800 and 1000 words."
+    setKeywords(
+      "GenAI, LLM's, AI Show, phi-3 mini, browser, AI, machine learning, deep learning, neural networks, artificial intelligence, OpenAI"
     );
+    setAudience("Technical audience that wants to build with AI.");
   };
 
 
   const reset = () => {
-    setResearch("");
-    setProducts("");
-    setWriting("");
+    setDescription("");
+    setKeywords("");
+    setAudience("");
   };
 
   const newMessage = (message: IMessage) => {
     dispatch(addMessage(message));
   };
 
-  const newArticle = (article: string) => {
-    dispatch(addArticle(article));
+  const newPost = (post: string) => {
+    dispatch(addPost(post));
   };
 
   const startWork = () => {
-    if (research === "" || products === "" || writing === "") {
+    if (description === "" || keywords === "" || audience === "") {
       return;
     }
-    startWritingTask(research, products, writing, newMessage, newArticle);
+    startWritingTask(description, keywords, audience, newMessage, newPost);
   }
 
   return (
     <div className="p-3">
       <div className="text-start">
         <label
-          htmlFor="research"
+          htmlFor="description"
           className="block text-sm font-medium leading-6 text-gray-900"
         >
-          Research
+          Description
         </label>
         <p className="mt-1 text-sm leading-6 text-gray-400">
-          What kinds of things should I find?
+          Describe the nature of the social media posts you would like to
+          create.
         </p>
         <div className="mt-2">
           <div className=" flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600">
             <textarea
-              id="research"
-              name="research"
+              id="description"
+              name="description"
               rows={3}
               cols={60}
               className="p-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              value={research}
-              onChange={(e) => setResearch(e.target.value)}
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
             />
           </div>
         </div>
@@ -77,45 +78,45 @@ export const Task = () => {
 
       <div className="text-start mt-3">
         <label
-          htmlFor="products"
+          htmlFor="keywords"
           className="block text-sm font-medium leading-6 text-gray-900"
         >
-          Products
+          Keywords
         </label>
         <p className="mt-1 text-sm leading-6 text-gray-400">
-          What products should I look at?
+          Create a list of comma seperated keywords you would like emphasized.
         </p>
         <div className="mt-2">
           <textarea
-            id="products"
-            name="products"
+            id="keywords"
+            name="keywords"
             rows={3}
             cols={60}
             className="p-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-            value={products}
-            onChange={(e) => setProducts(e.target.value)}
+            value={keywords}
+            onChange={(e) => setKeywords(e.target.value)}
           />
         </div>
       </div>
       <div className="text-start mt-3">
         <label
-          htmlFor="writing"
+          htmlFor="audience"
           className="block text-sm font-medium leading-6 text-gray-900"
         >
-          Assignment
+          Audience
         </label>
         <p className="mt-1 text-sm leading-6 text-gray-400">
-          What kind of writing should I do?
+          Who is the intended audience for this content?
         </p>
         <div className="mt-2">
           <textarea
-            id="writing"
-            name="writing"
+            id="audience"
+            name="audience"
             rows={3}
             cols={60}
             className="p-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-            value={writing}
-            onChange={(e) => setWriting(e.target.value)}
+            value={audience}
+            onChange={(e) => setAudience(e.target.value)}
           />
         </div>
       </div>
